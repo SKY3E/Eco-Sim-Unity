@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GameSimulator : MonoBehaviour
 {
-  public GameObject plantPrefab;
-  public GameObject herbivorePrefab;
   public Sprite Circle;
   public Sprite Square;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimalGenetics : MonoBehaviour
+public class AnimalGenetics
 {
   public string name;
   public float range;
