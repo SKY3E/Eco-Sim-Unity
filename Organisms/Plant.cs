@@ -17,6 +17,7 @@ public class Plant : MonoBehaviour
     // Set the attributes of the SpriteRenderer component
     spriteRenderer.sprite = sprite;
     spriteRenderer.color = color;
+    spriteRenderer.sortingOrder = 1;
 
     // Set the attributes of the SphereCollider component
     sphereCollider.radius = size;

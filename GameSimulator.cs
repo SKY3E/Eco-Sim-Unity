@@ -7,6 +7,7 @@ public class GameSimulator : MonoBehaviour
   public GameObject plantPrefab;
   public GameObject herbivorePrefab;
   public Sprite Circle;
+  public Sprite Square;
 
   void Start()
   {
@@ -21,6 +22,6 @@ public class GameSimulator : MonoBehaviour
 
   void SpawnHerbivore()
   {
-    Instantiate(herbivorePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+    GameObject herbivoreGameObject = Herbivore.CreateHerbivore(Square, new Vector3(0, 0, 0), new AnimalGenetics("Herbivore", 2.0f, 0.1f, 0.1f, 0.3f, Color.white));
   }
 }

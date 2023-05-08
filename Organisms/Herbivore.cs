@@ -4,28 +4,24 @@ using UnityEngine;
 
 public class Herbivore : MonoBehaviour
 {
-  private Vector3 targetLocation;
-  private float range = 5.0f;
-  private float shrinkSpeed = 0.1f;
-  private float destroyThreshold = 0.1f;
+  public Vector3 targetLocation;
 
-  // Start is called before the first frame update
+  public string name;
+  public float range;
+  public float shrinkSpeed;
+  public float destroyThreshold;
+  public float size;
+  public Color color;
+
   void Start()
   {
-    InvokeRepeating("ChangeTargetLocation", 0.0f, 5.0f);
+    InvokeRepeating("ChangeTargetLocation", 0f, 5f);
   }
 
-  // Update is called once per frame
   void Update()
   {
     MoveToLocation();
     CheckPlantOverlap();
-  }
-
-  private void OnDrawGizmos()
-  {
-    Gizmos.color = Color.blue;
-    Gizmos.DrawWireSphere(transform.position, range);
   }
 
   void MoveToLocation()
@@ -35,23 +31,18 @@ public class Herbivore : MonoBehaviour
 
   void ChangeTargetLocation()
   {
-    targetLocation = new Vector3(Random.Range(-15f, 15f), Random.Range(-7.5f, 7.5f), 0);
+    targetLocation = new Vector3(Random.Range(-14f, 14f), Random.Range(-6.5f, 6.5f), 0);
   }
 
-  void CheckPlantOverlap() 
+  void CheckPlantOverlap()
   {
     Collider[] colliders = Physics.OverlapSphere(transform.position, range);
 
     foreach (Collider collider in colliders)
     {
-      Debug.Log("Found a collider!");
       if (collider.CompareTag("Plant"))
       {
-        Debug.Log("Found a plant!");
-        // Shrink the plant object
         collider.transform.localScale -= Vector3.one * shrinkSpeed * Time.deltaTime;
-
-        // If the plant object is small enough, delete it
         if (collider.transform.localScale.x <= destroyThreshold)
         {
           Destroy(collider.gameObject);
@@ -59,4 +50,30 @@ public class Herbivore : MonoBehaviour
       }
     }
   }
+
+  public static GameObject CreateHerbivore(Sprite sprite, Vector3 position, AnimalGenetics genetics)
+  {
+    GameObject herbivoreGO = new GameObject(genetics.name);
+    SpriteRenderer spriteRenderer = herbivoreGO.AddComponent<SpriteRenderer>();
+
+    spriteRenderer.sprite = sprite;
+    spriteRenderer.color = genetics.color;
+    spriteRenderer.sortingOrder = 2;
+
+    Herbivore herbivore = herbivoreGO.AddComponent<Herbivore>();
+    herbivore.name = genetics.name;
+    herbivore.range = genetics.range;
+    herbivore.shrinkSpeed = genetics.shrinkSpeed;
+    herbivore.destroyThreshold = genetics.destroyThreshold;
+    herbivore.size = genetics.size;
+    herbivore.color = genetics.color;
+
+    // Set Game Object attributes
+    herbivoreGO.transform.localScale = new Vector3(genetics.size, genetics.size, genetics.size);
+    herbivoreGO.tag = "Herbivore";
+    herbivoreGO.transform.position = position;
+
+    return herbivoreGO;
+  }
 }
+
