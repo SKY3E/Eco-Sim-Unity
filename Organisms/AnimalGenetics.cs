@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class AnimalGenetics
 {
-  public string name;
+  // Animal gene attributes
+  public string family;
   public float range;
   public float shrinkSpeed;
   public float destroyThreshold;
   public float size;
   public Color color;
 
-  public AnimalGenetics(string name, float range, float shrinkSpeed, float destroyThreshold, float size, Color color)
+  // Create an animal genetics object
+  public AnimalGenetics(string family, float range, float shrinkSpeed, float destroyThreshold, float size, Color color)
   {
-    this.name = name;
+    this.family = family;
     this.range = range;
     this.shrinkSpeed = shrinkSpeed;
     this.destroyThreshold = destroyThreshold;

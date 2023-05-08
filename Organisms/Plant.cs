@@ -4,30 +4,29 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour
 {
-  public string plantName;
+  // Plant gene attributes
+  public string family;
   public float size;
   public Color color;
 
-  public static GameObject CreatePlant(string name, float size, Color color, Sprite sprite)
+  // Create a plant game object
+  public static GameObject CreatePlant(string family, float size, Color color, Sprite sprite)
   {
-    GameObject plantGO = new GameObject(name);
+    GameObject plantGO = new GameObject(family);
     SpriteRenderer spriteRenderer = plantGO.AddComponent<SpriteRenderer>();
     SphereCollider sphereCollider = plantGO.AddComponent<SphereCollider>();
 
-    // Set the attributes of the SpriteRenderer component
     spriteRenderer.sprite = sprite;
     spriteRenderer.color = color;
     spriteRenderer.sortingOrder = 1;
 
-    // Set the attributes of the SphereCollider component
     sphereCollider.radius = size;
 
     Plant plant = plantGO.AddComponent<Plant>();
-    plant.plantName = name;
+    plant.family = family;
     plant.size = size;
     plant.color = color;
 
-    // Set Game Object attributes
     plantGO.transform.localScale = new Vector3(size, size, size);
     plantGO.tag = "Plant";
     plantGO.transform.position = new Vector3(Random.Range(-15f, 15f), Random.Range(-7.5f, 7.5f), 0);
