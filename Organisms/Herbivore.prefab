@@ -97,3 +97,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20a7a5b4d7a9f994bb449f571d31d053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Square: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  targetLocation: {x: 0, y: 0, z: 0}
+  energy: 0
+  reproduce: 0
+  family: 
+  range: 0
+  shrinkSpeed: 0
+  destroyThreshold: 0
+  size: 0
+  maxEnergy: 0
+  reproduceThreshold: 0
+  color: {r: 0, g: 0, b: 0, a: 0}

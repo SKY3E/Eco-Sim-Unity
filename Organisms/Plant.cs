@@ -10,7 +10,7 @@ public class Plant : MonoBehaviour
   public Color color;
 
   // Create a plant game object
-  public static GameObject CreatePlant(string family, float size, Color color, Sprite sprite)
+  public static GameObject CreatePlant(string family, float size, Color color, Sprite sprite, GameSimulator gameSimulator)
   {
     GameObject plantGO = new GameObject(family);
     SpriteRenderer spriteRenderer = plantGO.AddComponent<SpriteRenderer>();
@@ -31,6 +31,7 @@ public class Plant : MonoBehaviour
     plantGO.tag = "Plant";
     plantGO.transform.position = new Vector3(Random.Range(-15f, 15f), Random.Range(-7.5f, 7.5f), 0);
 
+    gameSimulator.plantCount++;
     return plantGO;
   }
 }

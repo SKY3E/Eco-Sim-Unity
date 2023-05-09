@@ -11,9 +11,11 @@ public class AnimalGenetics
   public float destroyThreshold;
   public float size;
   public Color color;
+  public float maxEnergy;
+  public float reproduceThreshold;
 
   // Create an animal genetics object
-  public AnimalGenetics(string family, float range, float shrinkSpeed, float destroyThreshold, float size, Color color)
+  public AnimalGenetics(string family, float range, float shrinkSpeed, float destroyThreshold, float size, Color color, float maxEnergy, float reproduceThreshold)
   {
     this.family = family;
     this.range = range;
@@ -21,5 +23,7 @@ public class AnimalGenetics
     this.destroyThreshold = destroyThreshold;
     this.size = size;
     this.color = color;
+    this.maxEnergy = maxEnergy;
+    this.reproduceThreshold = reproduceThreshold;
   }
 }
