@@ -67,9 +67,9 @@ public class Herbivore : MonoBehaviour
   // Check if the herbivore is overlapping with a plant
   void CheckPlantOverlap()
   {
-    Collider[] colliders = Physics.OverlapSphere(transform.position, range);
+    Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range);
 
-    foreach (Collider collider in colliders)
+    foreach (Collider2D collider in colliders)
     {
       if (collider.CompareTag("Plant"))
       {
@@ -85,9 +85,9 @@ public class Herbivore : MonoBehaviour
   }
   void CheckFamilyOverlap()
   {
-    Collider[] colliders = Physics.OverlapSphere(transform.position, range);
+    Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range);
 
-    foreach (Collider collider in colliders)
+    foreach (Collider2D collider in colliders)
     {
       if (collider.CompareTag("Herbivore"))
       {
@@ -124,13 +124,13 @@ public class Herbivore : MonoBehaviour
   {
     GameObject herbivoreGO = new GameObject(genetics.family);
     SpriteRenderer spriteRenderer = herbivoreGO.AddComponent<SpriteRenderer>();
-    SphereCollider sphereCollider = herbivoreGO.AddComponent<SphereCollider>();
+    CircleCollider2D circleCollider = herbivoreGO.AddComponent<CircleCollider2D>();
 
     spriteRenderer.sprite = sprite;
     spriteRenderer.color = genetics.color;
     spriteRenderer.sortingOrder = 2;
 
-    sphereCollider.radius = genetics.size;
+    circleCollider.radius = genetics.size;
 
     Herbivore herbivore = herbivoreGO.AddComponent<Herbivore>();
     herbivore.family = genetics.family;

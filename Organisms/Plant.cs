@@ -14,13 +14,14 @@ public class Plant : MonoBehaviour
   {
     GameObject plantGO = new GameObject(family);
     SpriteRenderer spriteRenderer = plantGO.AddComponent<SpriteRenderer>();
-    SphereCollider sphereCollider = plantGO.AddComponent<SphereCollider>();
+    CircleCollider2D circleCollider = plantGO.AddComponent<CircleCollider2D>();
 
     spriteRenderer.sprite = sprite;
     spriteRenderer.color = color;
     spriteRenderer.sortingOrder = 1;
 
-    sphereCollider.radius = size;
+    circleCollider.radius = size;
+    circleCollider.isTrigger = true;
 
     Plant plant = plantGO.AddComponent<Plant>();
     plant.family = family;
