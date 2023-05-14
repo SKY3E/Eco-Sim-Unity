@@ -29,7 +29,7 @@ public class GameSimulator : MonoBehaviour
   // Spawn a herbivore
   void SpawnHerbivore()
   {
-    AnimalGenetics genetics = new AnimalGenetics("Herbivore", 2.0f, 0.3f, 0.1f, 0.6f, Color.white, 50f, 20f);
+    AnimalGenetics genetics = new AnimalGenetics("Sheep", 2.0f, 0.3f, 0.1f, 0.6f, Color.white, 50f, 20f);
     GameObject herbivoreGameObject = Herbivore.CreateHerbivore(Square, new Vector3(0, 0, 0), genetics, this);
   }
 }
