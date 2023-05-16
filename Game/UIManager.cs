@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
 
   public TextMeshProUGUI organismTypeText;
   public TextMeshProUGUI organismFamilyText;
+  public TextMeshProUGUI organismColorText;
+  public TextMeshProUGUI organismSizeText;
   public GameObject cursorPicker;
 
   void Start()
@@ -31,12 +33,12 @@ public class UIManager : MonoBehaviour
         if (collider.CompareTag("Plant"))
         {
             Debug.Log("Clicked on plant!");
-            UpdateOrganismUi(collider.tag, collider.GetComponent<Plant>().family);
+            UpdateOrganismUi(collider.tag, collider.GetComponent<Plant>().family, collider.GetComponent<Plant>().color, collider.GetComponent<Plant>().size);
         }
         if (collider.CompareTag("Herbivore"))
         {
             Debug.Log("Clicked on herbivore!");
-            UpdateOrganismUi(collider.tag, collider.GetComponent<Herbivore>().family);
+            UpdateOrganismUi(collider.tag, collider.GetComponent<Herbivore>().family, collider.GetComponent<Herbivore>().color, collider.GetComponent<Herbivore>().size);
         }
       }
     }
@@ -54,11 +56,15 @@ public class UIManager : MonoBehaviour
   {
     organismTypeText = GameObject.Find("Organism Type").GetComponent<TextMeshProUGUI>();
     organismFamilyText = GameObject.Find("Organism Family").GetComponent<TextMeshProUGUI>();
+    organismColorText = GameObject.Find("Organism Color").GetComponent<TextMeshProUGUI>();
+    organismSizeText = GameObject.Find("Organism Size").GetComponent<TextMeshProUGUI>();
   }
 
-  void UpdateOrganismUi(string Type, string Family)
+  void UpdateOrganismUi(string Type, string Family, Color Color, float Size)
   {
     organismTypeText.text = "Type : " + Type;
     organismFamilyText.text = "Family : " + Family;
+    organismColorText.text = "Color : " + Color;
+    organismSizeText.text = "Size : " + Size;
   }
 }
