@@ -8,11 +8,14 @@ public class UIManager : MonoBehaviour
   public float range = 1f;
 
   public GameObject infoPanel;
+  public string selectedOrganism;
 
   public TextMeshProUGUI organismTypeText;
   public TextMeshProUGUI organismFamilyText;
   public TextMeshProUGUI organismColorText;
   public TextMeshProUGUI organismSizeText;
+  public TextMeshProUGUI organismExtra1;
+  public TextMeshProUGUI organismExtra2;
   
   public GameObject cursorPicker;
 
@@ -36,12 +39,14 @@ public class UIManager : MonoBehaviour
         if (collider.CompareTag("Plant"))
         {
           infoPanel.SetActive(true);
-          UpdateOrganismUi(collider.tag, collider.GetComponent<Plant>().family, collider.GetComponent<Plant>().color, collider.GetComponent<Plant>().size);
+          selectedOrganism = collider.tag;
+          UpdateOrganismUi(collider.tag, collider.GetComponent<Plant>().family, collider.GetComponent<Plant>().color, collider.GetComponent<Plant>().size, 0f, 0f);
         }
         if (collider.CompareTag("Herbivore"))
         {
           infoPanel.SetActive(true);
-          UpdateOrganismUi(collider.tag, collider.GetComponent<Herbivore>().family, collider.GetComponent<Herbivore>().color, collider.GetComponent<Herbivore>().size);
+          selectedOrganism = collider.tag;
+          UpdateOrganismUi(collider.tag, collider.GetComponent<Herbivore>().family, collider.GetComponent<Herbivore>().color, collider.GetComponent<Herbivore>().size, collider.GetComponent<Herbivore>().reproduceThreshold, collider.GetComponent<Herbivore>().energy);
         }
       }
     }
@@ -63,14 +68,31 @@ public class UIManager : MonoBehaviour
     organismFamilyText = GameObject.Find("Organism Family").GetComponent<TextMeshProUGUI>();
     organismColorText = GameObject.Find("Organism Color").GetComponent<TextMeshProUGUI>();
     organismSizeText = GameObject.Find("Organism Size").GetComponent<TextMeshProUGUI>();
+    organismExtra1 = GameObject.Find("Organism Extra 1").GetComponent<TextMeshProUGUI>();
+    organismExtra1.gameObject.SetActive(false);
+    organismExtra2 = GameObject.Find("Organism Extra 2").GetComponent<TextMeshProUGUI>();
+    organismExtra2.gameObject.SetActive(false);
   }
 
-  void UpdateOrganismUi(string Type, string Family, Color color, float Size)
+  void UpdateOrganismUi(string type, string family, Color color, float size, float reproduceThreshold, float energy)
   {
-    organismTypeText.text = "Type : " + Type;
-    organismFamilyText.text = "Family : " + Family;
+    organismTypeText.text = "Type : " + type;
+    organismFamilyText.text = "Family : " + family;
     organismColorText.text = "Color : " + GetColorName(color);
-    organismSizeText.text = "Size : " + Size;
+    organismSizeText.text = "Size : " + size;
+
+    if (selectedOrganism == "Herbivore")
+    {
+      organismExtra1.gameObject.SetActive(true);
+      organismExtra1.text = "Reproduce Threshold : " + reproduceThreshold;
+      organismExtra2.gameObject.SetActive(true);
+      organismExtra2.text = "Energy : " + energy;
+    }
+    else 
+    {
+      organismExtra1.gameObject.SetActive(false);
+      organismExtra2.gameObject.SetActive(false);
+    }
   }
 
   public void CloseInfoPanel()
