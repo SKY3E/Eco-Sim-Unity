@@ -20,7 +20,6 @@ public class UIManager : MonoBehaviour
   {
     FindUiElements();
     infoPanel.SetActive(false);
-    cursorPicker = GameObject.Find("Cursor Picker");
   }
 
   void Update()
@@ -58,6 +57,7 @@ public class UIManager : MonoBehaviour
 
   void FindUiElements()
   {
+    cursorPicker = GameObject.Find("Cursor Picker");
     infoPanel = GameObject.Find("Info Panel");
     organismTypeText = GameObject.Find("Organism Type").GetComponent<TextMeshProUGUI>();
     organismFamilyText = GameObject.Find("Organism Family").GetComponent<TextMeshProUGUI>();
@@ -65,16 +65,27 @@ public class UIManager : MonoBehaviour
     organismSizeText = GameObject.Find("Organism Size").GetComponent<TextMeshProUGUI>();
   }
 
-  void UpdateOrganismUi(string Type, string Family, Color Color, float Size)
+  void UpdateOrganismUi(string Type, string Family, Color color, float Size)
   {
     organismTypeText.text = "Type : " + Type;
     organismFamilyText.text = "Family : " + Family;
-    organismColorText.text = "Color : " + Color;
+    organismColorText.text = "Color : " + GetColorName(color);
     organismSizeText.text = "Size : " + Size;
   }
 
   public void CloseInfoPanel()
   {
     infoPanel.SetActive(false);
+  }
+
+  string GetColorName(Color color)
+  {
+    if (color == Color.red) return "Red";
+    else if (color == Color.green) return "Green";
+    else if (color == Color.blue) return "Blue";
+    else if (color == Color.yellow) return "Yellow";
+    else if (color == Color.white) return "White";
+    else if (color == Color.black) return "Black";
+    else return "Unknown";
   }
 }
