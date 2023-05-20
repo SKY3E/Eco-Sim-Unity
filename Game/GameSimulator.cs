@@ -52,6 +52,7 @@ public class GameSimulator : MonoBehaviour
     GameObject herbivoreGameObject = Herbivore.CreateHerbivore(Square, new Vector3(0, 0, 0), genetics, this);
   }
 
+  // Move camera w/ controls
   void UpdateCamera()
   {
     float scrollInput = Input.GetAxis("Mouse ScrollWheel");

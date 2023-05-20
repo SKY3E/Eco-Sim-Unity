@@ -20,6 +20,7 @@ public class Herbivore : MonoBehaviour
   public float reproduceThreshold;
   public Color color;
 
+  // Define herbivore attributes & set loop to change target location
   void Start()
   {
     energy = maxEnergy;
@@ -28,6 +29,7 @@ public class Herbivore : MonoBehaviour
     InvokeRepeating("ChangeTargetLocation", 0f, 5f);
   }
 
+  // Lower engergy & increase reproductive rate & call various functions
   void Update()
   {
     energy -= 1f * Time.deltaTime;
@@ -46,12 +48,6 @@ public class Herbivore : MonoBehaviour
       MoveToLocation();
     }
     CheckPlantOverlap();
-  }
-
-  void OnDrawGizmosSelected()
-  {
-    Gizmos.color = Color.green;
-    Gizmos.DrawWireSphere(transform.position, range);
   }
 
   // Move to target location
@@ -83,6 +79,7 @@ public class Herbivore : MonoBehaviour
       }
     }
   }
+  // Check if the herbivore is overlapping with a herbivore of the same family
   void CheckFamilyOverlap()
   {
     Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, range);

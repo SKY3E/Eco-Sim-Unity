@@ -5,26 +5,28 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+  // Picker attributes
+  public GameObject cursorPicker;
   public float range = 1f;
-
+  // UI attributes
   public GameObject infoPanel;
   public string selectedOrganism;
-
+  // UI elements
   public TextMeshProUGUI organismTypeText;
   public TextMeshProUGUI organismFamilyText;
   public TextMeshProUGUI organismColorText;
   public TextMeshProUGUI organismSizeText;
   public TextMeshProUGUI organismExtra1;
   public TextMeshProUGUI organismExtra2;
-  
-  public GameObject cursorPicker;
 
+  // Find UI elements && set initial info panel state
   void Start()
   {
     FindUiElements();
     infoPanel.SetActive(false);
   }
 
+  // Draw cursor circle & check for click on organisms
   void Update()
   {
     DrawCursorCircle();
@@ -52,6 +54,7 @@ public class UIManager : MonoBehaviour
     }
   }
 
+  // Draw cursor circle
   void DrawCursorCircle()
   {
     Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -59,7 +62,7 @@ public class UIManager : MonoBehaviour
     float circleRadius = range / 2f;
     cursorPicker.transform.localScale = new Vector3(circleRadius * 2, circleRadius * 2, 1f);
   }
-
+  // Find UI elements
   void FindUiElements()
   {
     cursorPicker = GameObject.Find("Cursor Picker");
@@ -73,7 +76,7 @@ public class UIManager : MonoBehaviour
     organismExtra2 = GameObject.Find("Organism Extra 2").GetComponent<TextMeshProUGUI>();
     organismExtra2.gameObject.SetActive(false);
   }
-
+  // Update UI to show organism info
   void UpdateOrganismUi(string type, string family, Color color, float size, float reproduceThreshold, float energy)
   {
     organismTypeText.text = "Type : " + type;
@@ -94,12 +97,12 @@ public class UIManager : MonoBehaviour
       organismExtra2.gameObject.SetActive(false);
     }
   }
-
+  // Close info panel
   public void CloseInfoPanel()
   {
     infoPanel.SetActive(false);
   }
-
+  // Get color name from color
   string GetColorName(Color color)
   {
     if (color == Color.red) return "Red";

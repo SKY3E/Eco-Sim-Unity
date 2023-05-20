@@ -4,6 +4,7 @@ using UnityEditor;
 [InitializeOnLoad]
 public class TagManager : UnityEditor.Editor
 {
+    // On start call AddTag functions & apply properties
     static TagManager()
     {
         SerializedObject tagManager = new SerializedObject(
@@ -17,7 +18,7 @@ public class TagManager : UnityEditor.Editor
 
         tagManager.ApplyModifiedProperties();
     }
-
+    // Add tag if it doesn't exist
     private static void AddTag(SerializedProperty tagsProp, string newTag)
     {
         bool found = false;
