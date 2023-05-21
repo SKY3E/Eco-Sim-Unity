@@ -105,8 +105,7 @@ public class Herbivore : MonoBehaviour
                   collidedHerbivore.energy -= 30f;
                   collidedHerbivore.reproduce = 0f;
                   Debug.Log("Reproduced");
-                  AnimalGenetics genetics = new AnimalGenetics("Herbivore", 2.0f, 0.3f, 0.1f, 0.6f, Color.white, 50f, 20f);
-                  CreateHerbivore(gameSimulator.Square, new Vector3(0, 0, 0), genetics, gameSimulator);
+                  gameSimulator.SpawnHerbivore(1, new Vector3(transform.position.x, transform.position.y, 0));
                 }
               }
             }

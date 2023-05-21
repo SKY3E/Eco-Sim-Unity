@@ -18,8 +18,11 @@ public class GameSimulator : MonoBehaviour
   // Camera references
   public Camera mainCamera;
   // Animal gentic variables
-  public List<string> AnimalGeneticNames = new List<string>() { "Sheep", "Giraffe", "Red Panda", "Wolf", "Platypus" }; 
-  public List<Color> AnimalGeneticColors = new List<Color>() { Color.white, Color.yellow, Color.red, Color.gray, Color.blue };
+  public string Name { get; private set; }
+  public Color Color { get; private set; }
+  public string[] AnimalGeneticNames = { "Sheep", "Giraffe", "Red Panda", "Wolf", "Platypus" }; 
+  public Color[] AnimalGeneticColors = { Color.white, Color.yellow, Color.red, Color.gray, Color.blue };
+
   public float AnimalMaxRange = 3f;
   public float AnimalMinRange = 0f;
   public float AnimalMaxSize = 0.8f;
@@ -29,7 +32,7 @@ public class GameSimulator : MonoBehaviour
   {
     mainCamera = Camera.main;
     InvokeRepeating("SpawnPlant", 0.0f, 0.4f);
-    SpawnHerbivore(3);
+    SpawnHerbivore(10, new Vector3(0, 0, 0));
   }
 
   void Update()
@@ -43,18 +46,22 @@ public class GameSimulator : MonoBehaviour
     GameObject sunflowerPlant = Plant.CreatePlant("Sunflower", 0.3f, Color.yellow, Circle, this);
   }
   // Spawn a herbivore
-  void SpawnHerbivore(int count)
+  public void SpawnHerbivore(int count, Vector3 position)
   {
+    System.Random random = new System.Random();
+
     for (int i = 0; i < count; i++)
     {
-      int randomIndex = Random.Range(0, AnimalGeneticNames.Count);
-      string randomName = AnimalGeneticNames[randomIndex];
-      Color randomColor = AnimalGeneticColors[randomIndex];
-      Debug.Log(AnimalGeneticNames.Count);
-      Debug.Log(randomIndex);
-      AnimalGenetics genetics = new AnimalGenetics(randomName, Random.Range(AnimalMinRange, AnimalMaxRange), 0.3f, 0.1f, Random.Range(AnimalMinSize, AnimalMaxSize), randomColor, 50f, 20f);
-      GameObject herbivoreGameObject = Herbivore.CreateHerbivore(Square, new Vector3(0, 0, 0), genetics, this);
+      int randomIndex = random.Next(0, AnimalGeneticNames.Length);
+      Name = AnimalGeneticNames[randomIndex];
+      Color = AnimalGeneticColors[randomIndex];
+      Debug.Log("Length of Genetics Name : " + count + " " + AnimalGeneticNames.Length);
+      Debug.Log("Index Id : " + count + " " + randomIndex);
+      AnimalGenetics genetics = new AnimalGenetics(Name, Random.Range(AnimalMinRange, AnimalMaxRange), 0.3f, 0.1f, Random.Range(AnimalMinSize, AnimalMaxSize), Color, 50f, 20f);
+      GameObject herbivoreGameObject = Herbivore.CreateHerbivore(Square, position, genetics, this);
     }
+
+    Debug.Log("Spawning herbivore");
   }
 
   // Move camera w/ controls
