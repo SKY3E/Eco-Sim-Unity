@@ -1688,18 +1688,12 @@ MonoBehaviour:
   maxZoomSize: 10
   moveSpeed: 5
   mainCamera: {fileID: 0}
-  AnimalGeneticNames:
-  - Sheep
-  - Giraffe
-  - Red Panda
-  AnimalGeneticColors:
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  - {r: 1, g: 0, b: 0, a: 1}
-  AnimalMaxRange: 3
-  AnimalMinRange: 0
-  AnimalMaxSize: 0.8
-  AnimalMinSize: 0.4
+  AnimalGeneticColors: []
+  AnimalGeneticNames: []
+  animalMaxRange: 3
+  animalMinRange: 0
+  animalMaxSize: 0.8
+  animalMinSize: 0.4
 --- !u!4 &1231819311
 Transform:
   m_ObjectHideFlags: 0
@@ -1727,6 +1721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fff0d18132c45a4fb9a511ba44c0416, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorPicker: {fileID: 0}
   range: 1
   infoPanel: {fileID: 0}
   selectedOrganism: 
@@ -1736,7 +1731,6 @@ MonoBehaviour:
   organismSizeText: {fileID: 0}
   organismExtra1: {fileID: 0}
   organismExtra2: {fileID: 0}
-  cursorPicker: {fileID: 0}
 --- !u!61 &1231819313
 BoxCollider2D:
   m_ObjectHideFlags: 0

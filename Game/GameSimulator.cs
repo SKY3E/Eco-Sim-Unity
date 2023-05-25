@@ -33,11 +33,8 @@ public class GameSimulator : MonoBehaviour
     InvokeRepeating("SpawnPlant", 0.0f, 0.4f);
     // Initialize animal genetic lists
     InitializeLists();
-    // Get random color & family from lists & spawn herbivores
-    int randomIndex = UnityEngine.Random.Range(0, AnimalGeneticColors.Count);
-    Color color = AnimalGeneticColors[randomIndex];
-    string family = AnimalGeneticNames[randomIndex];
-    SpawnHerbivore(10, new Vector3(0, 0, 0), family, color, animalMinRange, animalMaxRange, 0.3f, 0.1f, animalMinSize, animalMaxSize, 50f, 20f);
+    // Spawn random herbivores
+    SpawnRandomHerbivore(10, new Vector3(0, 0, 0), animalMinRange, animalMaxRange, 0.3f, 0.1f, animalMinSize, animalMaxSize, 50f, 20f);
   }
 
   void Update()
@@ -51,11 +48,22 @@ public class GameSimulator : MonoBehaviour
     GameObject sunflowerPlant = Plant.CreatePlant("Sunflower", 0.3f, Color.yellow, Circle, this);
   }
   // Spawn a herbivore
-  public void SpawnHerbivore(int count, Vector3 position, string Family, Color Color, float AnimalMinRange, float AnimalMaxRange, float ShrinkSpeed, float DestroyThreshold, float AnimalMinSize, float AnimalMaxSize, float MaxEnergy, float ReproduceThreshold)
+  public void SpawnRandomHerbivore(int count, Vector3 position, float AnimalMinRange, float AnimalMaxRange, float ShrinkSpeed, float DestroyThreshold, float AnimalMinSize, float AnimalMaxSize, float MaxEnergy, float ReproduceThreshold)
   {
     for (int i = 0; i < count; i++)
     {
+      int randomIndex = UnityEngine.Random.Range(0, AnimalGeneticColors.Count);
+      Color Color = AnimalGeneticColors[randomIndex];
+      string Family = AnimalGeneticNames[randomIndex];
       AnimalGenetics genetics = new AnimalGenetics(Family, Random.Range(AnimalMinRange, AnimalMaxRange), ShrinkSpeed, DestroyThreshold, Random.Range(AnimalMinSize, AnimalMaxSize), Color, MaxEnergy, ReproduceThreshold);
+      GameObject herbivoreGameObject = Herbivore.CreateHerbivore(Square, position, genetics, this);
+    }
+  }
+  public void SpawnHerbivore(int count, Vector3 position, string Family, Color Color, float AnimalRange, float ShrinkSpeed, float DestroyThreshold, float AnimalSize, float MaxEnergy, float ReproduceThreshold)
+  {
+    for (int i = 0; i < count; i++)
+    {
+      AnimalGenetics genetics = new AnimalGenetics(Family, AnimalRange, ShrinkSpeed, DestroyThreshold, AnimalSize, Color, MaxEnergy, ReproduceThreshold);
       GameObject herbivoreGameObject = Herbivore.CreateHerbivore(Square, position, genetics, this);
     }
   }

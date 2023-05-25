@@ -105,7 +105,7 @@ public class Herbivore : MonoBehaviour
                   collidedHerbivore.energy -= 30f;
                   collidedHerbivore.reproduce = 0f;
                   Debug.Log("Reproduced");
-                  gameSimulator.SpawnHerbivore(1, new Vector3(transform.position.x, transform.position.y, 0), family, color, range, range, shrinkSpeed, destroyThreshold, size, size, maxEnergy, reproduceThreshold);
+                  gameSimulator.SpawnHerbivore(1, new Vector3(transform.position.x, transform.position.y, 0), family, color, range, shrinkSpeed, destroyThreshold, size, maxEnergy, reproduceThreshold);
                 }
               }
             }
