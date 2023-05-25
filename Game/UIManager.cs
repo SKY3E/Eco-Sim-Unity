@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class UIManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class UIManager : MonoBehaviour
   public GameObject infoPanel;
   public string selectedOrganism;
   public GameObject selectedOrganismGameObject;
+  public bool isCameraFollowing = false;
   // UI elements
   public TextMeshProUGUI organismTypeText;
   public TextMeshProUGUI organismFamilyText;
@@ -21,6 +23,7 @@ public class UIManager : MonoBehaviour
   public TextMeshProUGUI organismSizeText;
   public TextMeshProUGUI organismExtra1;
   public TextMeshProUGUI organismExtra2;
+  public Button followButton;
 
   // Find UI elements && set initial info panel state
   void Start()
@@ -59,7 +62,7 @@ public class UIManager : MonoBehaviour
       }
     }
 
-    if (selectedOrganismGameObject != null)
+    if (selectedOrganismGameObject != null && isCameraFollowing)
     {
       gameSimulator.FollowCamera(selectedOrganismGameObject);
     }
@@ -86,6 +89,7 @@ public class UIManager : MonoBehaviour
     organismExtra1.gameObject.SetActive(false);
     organismExtra2 = GameObject.Find("Organism Extra 2").GetComponent<TextMeshProUGUI>();
     organismExtra2.gameObject.SetActive(false);
+    followButton = GameObject.Find("FollowButton").GetComponent<Button>();
   }
   // Update UI to show organism info
   void UpdateOrganismUi(string type, string family, Color color, float size, float reproduceThreshold, float energy)
@@ -114,6 +118,7 @@ public class UIManager : MonoBehaviour
     infoPanel.SetActive(false);
     selectedOrganism = null;
     selectedOrganismGameObject = null;
+    isCameraFollowing = false;
   }
   // Get color name from color
   string GetColorName(Color color)
@@ -127,4 +132,17 @@ public class UIManager : MonoBehaviour
     else if (color == Color.gray) return "Gray";
     else return "Unknown";
   }
+  // Set Camera Follow
+  public void SetCameraFollow()
+  {
+    isCameraFollowing = !isCameraFollowing;
+    if (isCameraFollowing)
+    {
+      followButton.GetComponentInChildren<TextMeshProUGUI>().text = "Unfollow";
+    }
+    else
+    {
+      followButton.GetComponentInChildren<TextMeshProUGUI>().text = "Follow";
+    }
+ }
 }
