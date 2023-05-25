@@ -124,6 +124,7 @@ public class UIManager : MonoBehaviour
     else if (color == Color.yellow) return "Yellow";
     else if (color == Color.white) return "White";
     else if (color == Color.black) return "Black";
+    else if (color == Color.gray) return "Gray";
     else return "Unknown";
   }
 }
