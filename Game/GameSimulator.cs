@@ -23,16 +23,21 @@ public class GameSimulator : MonoBehaviour
   public string[] AnimalGeneticNames = { "Sheep", "Giraffe", "Red Panda", "Wolf", "Platypus" }; 
   public Color[] AnimalGeneticColors = { Color.white, Color.yellow, Color.red, Color.gray, Color.blue };
 
-  public float AnimalMaxRange = 3f;
-  public float AnimalMinRange = 0f;
-  public float AnimalMaxSize = 0.8f;
-  public float AnimalMinSize = 0.4f;
+  public float animalMaxRange = 3f;
+  public float animalMinRange = 0f;
+  public float animalMaxSize = 0.8f;
+  public float animalMinSize = 0.4f;
 
   void Start()
   {
     mainCamera = Camera.main;
     InvokeRepeating("SpawnPlant", 0.0f, 0.4f);
-    SpawnHerbivore(10, new Vector3(0, 0, 0));
+
+    System.Random random = new System.Random();
+    int randomIndex = random.Next(0, AnimalGeneticNames.Length);
+    string family = AnimalGeneticNames[randomIndex];
+    Color color = AnimalGeneticColors[randomIndex];
+    SpawnHerbivore(10, new Vector3(0, 0, 0), family, color, animalMinRange, animalMaxRange, 0.3f, 0.1f, animalMinSize, animalMaxSize, 50f, 20f);
   }
 
   void Update()
@@ -46,18 +51,12 @@ public class GameSimulator : MonoBehaviour
     GameObject sunflowerPlant = Plant.CreatePlant("Sunflower", 0.3f, Color.yellow, Circle, this);
   }
   // Spawn a herbivore
-  public void SpawnHerbivore(int count, Vector3 position)
+  public void SpawnHerbivore(int count, Vector3 position, string Family, Color Color, float AnimalMinRange, float AnimalMaxRange, float ShrinkSpeed, float DestroyThreshold, float AnimalMinSize, float AnimalMaxSize, float MaxEnergy, float ReproduceThreshold)
   {
-    System.Random random = new System.Random();
-
     for (int i = 0; i < count; i++)
     {
-      int randomIndex = random.Next(0, AnimalGeneticNames.Length);
-      Name = AnimalGeneticNames[randomIndex];
-      Color = AnimalGeneticColors[randomIndex];
       Debug.Log("Length of Genetics Name : " + count + " " + AnimalGeneticNames.Length);
-      Debug.Log("Index Id : " + count + " " + randomIndex);
-      AnimalGenetics genetics = new AnimalGenetics(Name, Random.Range(AnimalMinRange, AnimalMaxRange), 0.3f, 0.1f, Random.Range(AnimalMinSize, AnimalMaxSize), Color, 50f, 20f);
+      AnimalGenetics genetics = new AnimalGenetics(Family, Random.Range(AnimalMinRange, AnimalMaxRange), ShrinkSpeed, DestroyThreshold, Random.Range(AnimalMinSize, AnimalMaxSize), Color, MaxEnergy, ReproduceThreshold);
       GameObject herbivoreGameObject = Herbivore.CreateHerbivore(Square, position, genetics, this);
     }
 
