@@ -101,4 +101,9 @@ public class GameSimulator : MonoBehaviour
     Vector3 moveDirection = new Vector3(horizontalInput, verticalInput, 0f);
     mainCamera.transform.position += moveDirection * moveSpeed * Time.deltaTime;
   }
+  // Move camera to follow organism
+  public void FollowCamera(GameObject gameObject)
+  {
+    mainCamera.transform.position = new Vector3(gameObject.transform.position.x + 4, gameObject.transform.position.y, mainCamera.transform.position.z);
+  }
 }

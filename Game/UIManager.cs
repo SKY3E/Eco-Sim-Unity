@@ -5,12 +5,15 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+  // Access game values
+  public GameSimulator gameSimulator;
   // Picker attributes
   public GameObject cursorPicker;
   public float range = 1f;
   // UI attributes
   public GameObject infoPanel;
   public string selectedOrganism;
+  public GameObject selectedOrganismGameObject;
   // UI elements
   public TextMeshProUGUI organismTypeText;
   public TextMeshProUGUI organismFamilyText;
@@ -22,6 +25,7 @@ public class UIManager : MonoBehaviour
   // Find UI elements && set initial info panel state
   void Start()
   {
+    gameSimulator = GameObject.Find("Game Simulator").GetComponent<GameSimulator>();
     FindUiElements();
     infoPanel.SetActive(false);
   }
@@ -42,15 +46,22 @@ public class UIManager : MonoBehaviour
         {
           infoPanel.SetActive(true);
           selectedOrganism = collider.tag;
+          selectedOrganismGameObject = collider.gameObject;
           UpdateOrganismUi(collider.tag, collider.GetComponent<Plant>().family, collider.GetComponent<Plant>().color, collider.GetComponent<Plant>().size, 0f, 0f);
         }
         if (collider.CompareTag("Herbivore"))
         {
           infoPanel.SetActive(true);
           selectedOrganism = collider.tag;
+          selectedOrganismGameObject = collider.gameObject;
           UpdateOrganismUi(collider.tag, collider.GetComponent<Herbivore>().family, collider.GetComponent<Herbivore>().color, collider.GetComponent<Herbivore>().size, collider.GetComponent<Herbivore>().reproduceThreshold, collider.GetComponent<Herbivore>().energy);
         }
       }
+    }
+
+    if (selectedOrganismGameObject != null)
+    {
+      gameSimulator.FollowCamera(selectedOrganismGameObject);
     }
   }
 
@@ -101,6 +112,8 @@ public class UIManager : MonoBehaviour
   public void CloseInfoPanel()
   {
     infoPanel.SetActive(false);
+    selectedOrganism = null;
+    selectedOrganismGameObject = null;
   }
   // Get color name from color
   string GetColorName(Color color)
