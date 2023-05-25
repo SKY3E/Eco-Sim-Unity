@@ -18,10 +18,8 @@ public class GameSimulator : MonoBehaviour
   // Camera references
   public Camera mainCamera;
   // Animal gentic variables
-  public string Name { get; private set; }
-  public Color Color { get; private set; }
-  public string[] AnimalGeneticNames = { "Sheep", "Giraffe", "Red Panda", "Wolf", "Platypus" }; 
-  public Color[] AnimalGeneticColors = { Color.white, Color.yellow, Color.red, Color.gray, Color.blue };
+  public List<Color> AnimalGeneticColors = new List<Color>(); 
+  public List<string> AnimalGeneticNames = new List<string>();
 
   public float animalMaxRange = 3f;
   public float animalMinRange = 0f;
@@ -31,12 +29,14 @@ public class GameSimulator : MonoBehaviour
   void Start()
   {
     mainCamera = Camera.main;
+    // Spawn plants every .4 seconds
     InvokeRepeating("SpawnPlant", 0.0f, 0.4f);
-
-    System.Random random = new System.Random();
-    int randomIndex = random.Next(0, AnimalGeneticNames.Length);
-    string family = AnimalGeneticNames[randomIndex];
+    // Initialize animal genetic lists
+    InitializeLists();
+    // Get random color & family from lists & spawn herbivores
+    int randomIndex = UnityEngine.Random.Range(0, AnimalGeneticColors.Count);
     Color color = AnimalGeneticColors[randomIndex];
+    string family = AnimalGeneticNames[randomIndex];
     SpawnHerbivore(10, new Vector3(0, 0, 0), family, color, animalMinRange, animalMaxRange, 0.3f, 0.1f, animalMinSize, animalMaxSize, 50f, 20f);
   }
 
@@ -55,12 +55,25 @@ public class GameSimulator : MonoBehaviour
   {
     for (int i = 0; i < count; i++)
     {
-      Debug.Log("Length of Genetics Name : " + count + " " + AnimalGeneticNames.Length);
       AnimalGenetics genetics = new AnimalGenetics(Family, Random.Range(AnimalMinRange, AnimalMaxRange), ShrinkSpeed, DestroyThreshold, Random.Range(AnimalMinSize, AnimalMaxSize), Color, MaxEnergy, ReproduceThreshold);
       GameObject herbivoreGameObject = Herbivore.CreateHerbivore(Square, position, genetics, this);
     }
+  }
 
-    Debug.Log("Spawning herbivore");
+  // Initialize Color & Family lists
+  void InitializeLists()
+  {
+    AnimalGeneticColors.Add(Color.white);
+    AnimalGeneticColors.Add(Color.yellow);
+    AnimalGeneticColors.Add(Color.red);
+    AnimalGeneticColors.Add(Color.gray);
+    AnimalGeneticColors.Add(Color.blue);
+
+    AnimalGeneticNames.Add("Sheep");
+    AnimalGeneticNames.Add("Giraffe");
+    AnimalGeneticNames.Add("Red Panda");
+    AnimalGeneticNames.Add("Wolf");
+    AnimalGeneticNames.Add("Platypus");
   }
 
   // Move camera w/ controls
